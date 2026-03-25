@@ -1,9 +1,17 @@
-import React from 'react'
+import { Routes, Route, Navigate } from 'react-router-dom'
+import Welcome from './Pages/Welcome'
+import UserReg from './Auth/UserReg'
+import UserLogin from './Auth/UserLogin'
+import Home from './Pages/Home'
 
-const App = () => {
+export default function App() {
   return (
-    <div className='text-3xl font-bold underline' >App</div>
+    <Routes>
+      <Route path="/" element={<Welcome />} />
+      <Route path="/signup" element={<UserReg />} />
+      <Route path="/login" element={<UserLogin />} />
+      <Route path="/home" element={<Home />} />
+      <Route path="*" element={<Navigate to="/" />} />
+    </Routes>
   )
 }
-
-export default App

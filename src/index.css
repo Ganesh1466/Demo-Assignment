@@ -1,1 +1,15 @@
 @import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", system-ui, sans-serif;
+  --color-primary: #4F46E5;
+  --color-primary-hover: #4338CA;
+  --color-surface: #FFFFFF;
+  --color-background: #F8FAFC;
+}
+
+@layer base {
+  body {
+    @apply font-sans bg-background text-slate-900 antialiased selection:bg-primary/20;
+  }
+}
