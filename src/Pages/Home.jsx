@@ -13,7 +13,10 @@ export default function Home() {
             const { data: { session } } = await supabase.auth.getSession()
 
             if (!session) {
-                navigate('/login')
+                // Prevent premature redirect if Supabase is still parsing the Google OAuth URL hash
+                if (!window.location.hash.includes('access_token')) {
+                    navigate('/login')
+                }
             } else {
                 setUser(session.user)
             }
@@ -23,10 +26,13 @@ export default function Home() {
         checkUser()
 
         const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-            if (!session) {
-                navigate('/login')
-            } else {
+            if (session) {
                 setUser(session.user)
+                setLoading(false)
+            } else {
+                if (!window.location.hash.includes('access_token')) {
+                    navigate('/login')
+                }
             }
         })
 
